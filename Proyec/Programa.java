@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Programa {
-
+	//hola 
 	Scanner sc = new Scanner(System.in);
 	RandomAccessFile fichero = null, entidades = null, atributos = null;
 	private final String rutaBase = "C:\\Users\\jona9\\Desktop\\John\\Proyec\\";
