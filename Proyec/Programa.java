@@ -26,7 +26,7 @@ public class Programa {
 	private final static String formatoFecha = "dd/MM/yyyy";
 	static DateFormat format = new SimpleDateFormat(formatoFecha);
 	private List<Entidades> listaEntidades = new ArrayList<>();
-	int Contador=1;
+	int contador=1;
 	public static void main(String[] args) {
 		Programa ad = new Programa();
 		if (ad.Definiciones()) {
@@ -430,7 +430,7 @@ public class Programa {
 		try {
 			File file;
 			for (Entidades entidad : listaEntidades) {
-				file = new File(rutaBase + entidad.getNombreEntidad().trim() + ".txt");
+				file = new File(rutaBase + entidad.getNombreEntidad().trim() + ".dat");
 				if (file.exists()) {
 					file.delete();
 				}
@@ -476,11 +476,11 @@ public class Programa {
 			do {
 				try {
 					System.out.println("Seleccione su opcion");
-					System.out.println("1.\t\tAgregar");
-					System.out.println("2.\t\tListar");
-					System.out.println("3.\t\tBuscar");
-					System.out.println("4.\t\tModificar");
-					System.out.println("0.\t\tRegresar al menu anterior");
+					System.out.println("1.Agregar");
+					System.out.println("2.Listar");
+					System.out.println("3.Eliminar");
+					System.out.println("4.Modificar");
+					System.out.println("0.Regresar al menu anterior");
 					opcion = sc.nextInt();
 					switch (opcion) {
 					case 0:
@@ -488,6 +488,7 @@ public class Programa {
 						break;
 					case 1:
 						grabarRegistro(entidad);
+						contador ++;
 						break;
 					case 2:
 						listarRegistros(entidad);
@@ -499,7 +500,7 @@ public class Programa {
 						// encontrarRegistro(carne);
 						break;
 					case 4:
-						System.out.println("Ingrese el carne a modificar: ");
+						//System.out.println("Ingrese el carne a modificar: ");
 						// carne = sc.nextInt();
 						// sc.nextLine();
 						// modificarRegistro(carne);
@@ -520,9 +521,11 @@ public class Programa {
 
 	private boolean grabarRegistro(Entidades entidad) {
 		boolean resultado = false;
+		int cant = contador;
 		try {
 			// posicionarse al final para grabar
 			fichero.seek(fichero.length());
+			fichero.writeInt(cant);
 			boolean valido;
 			byte[] bytesString;
 			String tmpString = "";
@@ -614,6 +617,7 @@ public class Programa {
 			for (Atributos atributo : entidad.getAtributos()) {
 				linea += atributo.getNombreAtributo().toString().trim() + "\t\t";
 			}
+			
 			System.out.println(linea);
 			while (longitud >= entidad.getBytes()) {
 				linea = "";
@@ -658,6 +662,7 @@ public class Programa {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+	
 
 	public Date strintToDate(String strFecha) {
 		Date date = null;
