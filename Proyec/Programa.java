@@ -26,7 +26,6 @@ public class Programa {
 	private final static String formatoFecha = "dd/MM/yyyy";
 	static DateFormat format = new SimpleDateFormat(formatoFecha);
 	private List<Entidades> listaEntidades = new ArrayList<>();
-	int contador=1;
 	public static void main(String[] args) {
 		Programa ad = new Programa();
 		if (ad.Definiciones()) {
@@ -488,7 +487,6 @@ public class Programa {
 						break;
 					case 1:
 						grabarRegistro(entidad);
-						contador ++;
 						break;
 					case 2:
 						listarRegistros(entidad);
@@ -521,11 +519,9 @@ public class Programa {
 
 	private boolean grabarRegistro(Entidades entidad) {
 		boolean resultado = false;
-		int cant = contador;
 		try {
 			// posicionarse al final para grabar
 			fichero.seek(fichero.length());
-			fichero.writeInt(cant);
 			boolean valido;
 			byte[] bytesString;
 			String tmpString = "";
